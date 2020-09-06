@@ -6,6 +6,19 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
+;;; ~/.config/doom/config.el -*- lexical-binding: t; -*-
+
+(add-to-list 'default-frame-alist '(top . 12))
+(add-to-list 'default-frame-alist '(left . 12))
+(add-to-list 'default-frame-alist '(width . 148))
+(add-to-list 'default-frame-alist '(height . 47))
+(add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+(add-to-list 'default-frame-alist '(ns-appearance . dark))
+
+(setq frame-resize-pixelwise t
+      ns-use-proxy-icon nil)
+
 (setq user-full-name "Joakim Frögren"
       user-mail-address "joakim@frogren.se")
 
@@ -19,13 +32,71 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
+;; (setq doom-font (font-spec :family "monospace" :size 13 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+
+
+;;--ui-------------------------------------------------------------------------
+
+(setq doom-font (font-spec :family "JetBrains Mono" :size 13)
+      doom-big-font (font-spec :family "JetBrains Mono" :size 16)
+      doom-variable-pitch-font (font-spec :family "JetBrains Mono" :size 12))
+
+(load-theme 'doom-nord-light t)
+(custom-theme-set-faces! 'doom-nord-light
+  '(default :background nil)
+  '(hl-line :background "#f0eee4")
+  '(nav-flash-face :foreground nil :background "#e7e7e7" :extend t)
+  '(header-line :background "#e7e7e7")
+  '(font-lock-comment-face :foreground "#9099ab")
+  '(font-lock-function-name-face :foreground "#282a2e" :weight bold)
+  '(font-lock-builtin-face :foreground "#282a2e" :weight bold)
+  '(font-lock-type-face :foreground "#282a2e" :weight bold)
+  '(font-lock-keyword-face :foreground "#282a2e" :weight bold)
+  '(git-gutter:deleted :foreground "#bf616a")
+  '(org-footnote :foreground "#9099ab")
+  '(org-verbatim :foreground "#444")
+  '(org-journal-calendar-entry-face :background "#9099ab" :foreground "#f0eee4")
+  '(markdown-pre-face :foreground "#444")
+  '(markdown-inline-code-face :background nil :inherit 'markdown-pre-face)
+  '(markdown-link-face :foreground "#444" :underline (:color "#444"))
+  '(mu4e-highlight-face :foreground "#444" :weight bold)
+  '(flycheck-error :foreground "#f0eee4" :background "#bf616a" :underline nil)
+  '(flycheck-error-overlay :background "#f2dfe1" :underline nil)
+  '(flycheck-warning :background "#f2dfe1" :underline nil)
+  '(flyspell-duplicate :background nil :underline nil)
+  '(flyspell-incorrect :background "#f2dfe1" :underline nil))
+;; (require 'doom-themes)
+
+;; Global settings (defaults)
+;; (load-theme 'doom-plain t)
+;; (custom-theme-set-faces! 'doom-plain
+;;   '(default :background nil)
+;;   '(hl-line :background "#f0eee4")
+;;   '(nav-flash-face :foreground nil :background "#e7e7e7" :extend t)
+;;   '(header-line :background "#e7e7e7")
+;;   '(font-lock-comment-face :foreground "#9099ab")
+;;   '(font-lock-function-name-face :foreground "#282a2e" :weight bold)
+;;   '(font-lock-builtin-face :foreground "#282a2e" :weight bold)
+;;   '(font-lock-type-face :foreground "#282a2e" :weight bold)
+;;   '(font-lock-keyword-face :foreground "#282a2e" :weight bold)
+;;   '(git-gutter:deleted :foreground "#bf616a")
+;;   '(org-footnote :foreground "#9099ab")
+;;   '(org-verbatim :foreground "#444")
+;;   '(org-journal-calendar-entry-face :background "#9099ab" :foreground "#f0eee4")
+;;   '(markdown-pre-face :foreground "#444")
+;;   '(markdown-inline-code-face :background nil :inherit 'markdown-pre-face)
+;;   '(markdown-link-face :foreground "#444" :underline (:color "#444"))
+;;   '(mu4e-highlight-face :foreground "#444" :weight bold)
+;;   '(flycheck-error :foreground "#f0eee4" :background "#bf616a" :underline nil)
+;;   '(flycheck-error-overlay :background "#f2dfe1" :underline nil)
+;;   '(flycheck-warning :background "#f2dfe1" :underline nil)
+;;   '(flyspell-duplicate :background nil :underline nil)
+;;   '(flyspell-incorrect :background "#f2dfe1" :underline nil))
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -106,10 +177,9 @@ date: ${date-modified}
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-
  '(package-selected-packages
    (quote
-    (pandoc poly-R poly-markdown polymode ess pdf-tools))))
+    (poly-R pdf-tools pandoc-mode pandoc lua-mode exec-path-from-shell ewal-doom-themes ess))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

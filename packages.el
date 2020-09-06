@@ -54,3 +54,4 @@
 (package! polymode)
 (package! poly-R)
 (package! poly-markdown)
+(package! doom-themes)
