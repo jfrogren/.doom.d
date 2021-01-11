@@ -71,6 +71,7 @@
   '(flyspell-duplicate :background nil :underline nil)
   '(flyspell-incorrect :background "#f2dfe1" :underline nil))
 ;; (require 'doom-themes)
+;;
 
 ;; Global settings (defaults)
 ;; (load-theme 'doom-plain t)
@@ -96,7 +97,14 @@
 ;;   '(flycheck-error-overlay :background "#f2dfe1" :underline nil)
 ;;   '(flycheck-warning :background "#f2dfe1" :underline nil)
 ;;   '(flyspell-duplicate :background nil :underline nil)
-;;   '(flyspell-incorrect :background "#f2dfe1" :underline nil))
+;;   '(flyspell-incorrect :background "#f2dfe1" :underline nil))i
+
+;;-- Websters 1923 dictionary-----------------------------------------------------
+
+(load! "~/emacs.d/sdcv-mode.el")
+
+;;--------------------------------------------------------------------------------
+
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -157,14 +165,7 @@
       bibtex-completion-notes-path "/Users/joafr/Documents/bibnotes"
       bibtex-completion-notes-extension ".md"
       bibtex-completion-find-additional-pdfs t
-      bibtex-completion-notes-template-multiple-files "---
-title: Notes on ${author-or-editor} (${year}) - ${title}
-author:
-- name: Joakim Frögren
-email: joakim.frogren@med.lu.se
-date: ${date-modified}
-...
-"
+      bibtex-completion-notes-template-multiple-files "Notes on ${author-or-editor} (${year}) - ${title}"
       bibtex-completion-notes-template-one-file "# Notes on ${author-or-editor} (${year}): ${title}")
 (delete-file "~/Library/Colors/Emacs.clr")
 
