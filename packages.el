@@ -48,6 +48,10 @@
 ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
+
+;; in ~/.doom.d/packages.el
+;;
+
 (package! pdf-tools)
 (package! ivy-bibtex)
 (package! pandoc)

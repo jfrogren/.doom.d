@@ -139,19 +139,16 @@
 
 ;; Pdf- tools
 
-(use-package pdf-tools
+(use-package! pdf-tools
   :load-path "site-lisp/pdf-tools/lisp"
   :magic ("%PDF" . pdf-view-mode)
   :config
-  (pdf-tools-install :no-query))
-
-;; (use-package pdf-tools
-;;  :mode ("\\.pdf\\'" . pdf-view-mode)
-;;  :config
-(setq-default pdf-view-display-size 'fit-page)
-(setq pdf-annot-activate-created-annotations t)
-(setq pdf-view-resize-factor 1.1)
-(setq pdf-view-use-unicode-ligther nil)
+  (pdf-tools-install :no-query)
+  (setq-default pdf-view-display-size 'fit-page)
+  (setq pdf-annot-activate-created-annotations t)
+  (setq pdf-view-resize-factor 1.1)
+  (setq pdf-view-use-unicode-ligther nil)
+  )
 
 (autoload 'ivy-bibtex "ivy-bibtex" "" t)
 ;; ivy-bibtex requires ivy's `ivy--regex-ignore-order` regex builder, which
