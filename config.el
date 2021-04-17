@@ -160,7 +160,7 @@
 (setq bibtex-completion-bibliography "/Users/joafr/Documents/bibfiles/library.bib"
       bibtex-completion-library-path "/Users/joafr/Documents/bibpdfs"
       bibtex-completion-notes-path "/Users/joafr/Documents/bibnotes"
-      bibtex-completion-notes-extension ".md"
+      bibtex-completion-notes-extension ".org"
       bibtex-completion-find-additional-pdfs t
       bibtex-completion-notes-template-multiple-files "Notes on ${author-or-editor} (${year}) - ${title}"
       bibtex-completion-notes-template-one-file "# Notes on ${author-or-editor} (${year}): ${title}")
@@ -184,3 +184,23 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;;------------------------------------------------------------------------------------
+;; org-roam
+;;------------------------------------------------------------------------------------
+
+ (setq org-roam-directory "/Users/joafr/org/slip-box")
+ (use-package! org-roam-bibtex
+  :after org-roam
+  :hook (org-roam-mode . org-roam-bibtex-mode)
+  :bind (:map org-mode-map
+         (("C-c n a" . orb-note-actions)))
+  :config
+  (require 'org-ref)) ; optional: if Org Ref is not loaded anywhere else, load it here
+
+;; Add the cite-key in the title of the notes,
+(setq orb-templates
+      '(("r" "ref" plain (function org-roam-capture--get-point) "%?"
+         :file-name "refs/${citekey}"
+         :head "#+TITLE: ${citekey}: ${title}\n#+ROAM_KEY: ${ref}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n"
+         :unnarrowed t)))
