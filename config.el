@@ -189,7 +189,7 @@
 ;; org-roam
 ;;------------------------------------------------------------------------------------
 
- (setq org-roam-directory "/Users/joafr/org/slip-box")
+ (setq org-roam-directory "/Users/joafr/org/zettelkasten")
  (use-package! org-roam-bibtex
   :after org-roam
   :hook (org-roam-mode . org-roam-bibtex-mode)
@@ -201,6 +201,6 @@
 ;; Add the cite-key in the title of the notes,
 (setq orb-templates
       '(("r" "ref" plain (function org-roam-capture--get-point) "%?"
-         :file-name "refs/${citekey}"
+         :file-name "bibnotes/${citekey}"
          :head "#+TITLE: ${citekey}: ${title}\n#+ROAM_KEY: ${ref}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n"
          :unnarrowed t)))
