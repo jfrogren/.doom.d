@@ -7,6 +7,25 @@
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 ;;; ~/.config/doom/config.el -*- lexical-binding: t; -*-
+;;;
+;; Here are some additional functions/macros that could help you configure Doom:
+;;
+;; - `load!' for loading external *.el files relative to this one
+;; - `use-package!' for configuring packages
+;; - `after!' for running code after a package has loaded
+;; - `add-load-path!' for adding directories to the `load-path', relative to
+;;   this file. Emacs searches the `load-path' when you load packages with
+;;   `require' or `use-package'.
+;; - `map!' for binding new keys
+;;
+;; To get information about any of these functions/macros, move the cursor over
+;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
+;; This will open documentation for it, including demos of how they are used.
+;;
+;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
+;; they are implemented.
+;; (setenv "PKG_CONFIG_PATH" (concat (shell-command-to-string "printf %s \"$(brew --prefix libffi)\"") "/lib/pkgconfig/"))
+
 
 (add-to-list 'default-frame-alist '(top . 12))
 (add-to-list 'default-frame-alist '(left . 12))
@@ -105,69 +124,18 @@
 
 ;;--------------------------------------------------------------------------------
 
+;; Code to be able to write 'snabel-a' using the right 'Alt' key
 
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(setq ns-right-alternate-modifier 'none)
+
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 
-
-;; Here are some additional functions/macros that could help you configure Doom:
-;;
-;; - `load!' for loading external *.el files relative to this one
-;; - `use-package!' for configuring packages
-;; - `after!' for running code after a package has loaded
-;; - `add-load-path!' for adding directories to the `load-path', relative to
-;;   this file. Emacs searches the `load-path' when you load packages with
-;;   `require' or `use-package'.
-;; - `map!' for binding new keys
-;;
-;; To get information about any of these functions/macros, move the cursor over
-;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
-;; This will open documentation for it, including demos of how they are used.
-;;
-;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
-;; they are implemented.
-;; (setenv "PKG_CONFIG_PATH" (concat (shell-command-to-string "printf %s \"$(brew --prefix libffi)\"") "/lib/pkgconfig/"))
-
-;; Code to be able to write 'snabel-a' using the right 'Alt' key
-
-(setq ns-right-alternate-modifier 'none)
-
-;; Pdf- tools
-
-(use-package! pdf-tools
-  :load-path "site-lisp/pdf-tools/lisp"
-  :magic ("%PDF" . pdf-view-mode)
-  :config
-  (pdf-tools-install :no-query)
-  (setq-default pdf-view-display-size 'fit-page)
-  (setq pdf-annot-activate-created-annotations t)
-  (setq pdf-view-resize-factor 1.1)
-  (setq pdf-view-use-unicode-ligther nil)
-  )
-
-(autoload 'ivy-bibtex "ivy-bibtex" "" t)
-;; ivy-bibtex requires ivy's `ivy--regex-ignore-order` regex builder, which
-;; ignores the order of regexp tokens when searching for matching candidates.
-;; Add something like this to your init file:
-(setq ivy-re-builders-alist
-      '((ivy-bibtex . ivy--regex-ignore-order)
-        (t . ivy--regex-plus)))
-(setq bibtex-completion-bibliography "/Users/joafr/Documents/bibfiles/library.bib"
-      bibtex-completion-library-path "/Users/joafr/Documents/bibpdfs"
-      bibtex-completion-notes-path "/Users/joafr/Documents/bibnotes"
-      bibtex-completion-notes-extension ".org"
-      bibtex-completion-find-additional-pdfs t
-      bibtex-completion-notes-template-multiple-files "Notes on ${author-or-editor} (${year}) - ${title}"
-      bibtex-completion-notes-template-one-file "# Notes on ${author-or-editor} (${year}): ${title}")
-(delete-file "~/Library/Colors/Emacs.clr")
-
+;;-------------------------------------------------------------------------------------
 ;; ispell - hunspell
-
+;;-------------------------------------------------------------------------------------
 (setq-default ispell-program-name "/usr/local/bin/hunspell")
   (setq ispell-really-hunspell t)
 (custom-set-variables
@@ -186,27 +154,142 @@
  )
 
 ;;------------------------------------------------------------------------------------
+;; org
+;;------------------------------------------------------------------------------------
+;; If you use `org' and don't want your org files in the default location below,
+;; change `org-directory'. It must be set before org loads!
+(setq org-directory "~/org/")
+
+;;------------------------------------------------------------------------------------
+;; pdf-tools
+;;------------------------------------------------------------------------------------
+(use-package! pdf-tools
+  :load-path "site-lisp/pdf-tools/lisp"
+  :magic ("%PDF" . pdf-view-mode)
+  :config
+  (pdf-tools-install :no-query)
+  (setq-default pdf-view-display-size 'fit-page)
+  (setq pdf-annot-activate-created-annotations t)
+  (setq pdf-view-resize-factor 1.1)
+  (setq pdf-view-use-unicode-ligther nil)
+  )
+
+;;---------------------------------------------------------------------------------------
+;;  ivy-bibtex
+;;---------------------------------------------------------------------------------------
+(autoload 'ivy-bibtex "ivy-bibtex" "" t)
+;; ivy-bibtex requires ivy's `ivy--regex-ignore-order` regex builder, which
+;; ignores the order of regexp tokens when searching for matching candidates.
+;; Add something like this to your init file:
+(setq ivy-re-builders-alist
+      '((ivy-bibtex . ivy--regex-ignore-order)
+        (t . ivy--regex-plus)))
+(setq bibtex-completion-bibliography "/Users/joafr/Documents/bibfiles/library.bib"
+      bibtex-completion-library-path "/Users/joafr/Documents/bibpdfs"
+      bibtex-completion-notes-path "/Users/joafr/org/zettelkasten/bibnotes"
+      bibtex-completion-notes-extension ".org"
+      bibtex-completion-find-additional-pdfs t
+      bibtex-completion-notes-template-multiple-files "Notes on ${author-or-editor} (${year}) - ${title}"
+      bibtex-completion-notes-template-one-file "# Notes on ${author-or-editor} (${year}): ${title}")
+(delete-file "~/Library/Colors/Emacs.clr")
+
+;;------------------------------------------------------------------------------------
+;;  org-ref
+;;------------------------------------------------------------------------------------
+(setq joafr/bibliography-path "/Users/joafr/Documents/bibfiles/library.bib")
+(setq joafr/pdf-path  "/Users/joafr/Documents/bibpdfs/")
+(setq joafr/bibliography-notes "/Users/joafr/org/zettelkasten/bibnotes")
+
+(use-package! org-ref
+  :after org
+  :commands
+  (org-ref-cite-hydra/body
+   org-ref-bibtex-hydra/body)
+ ;; :init
+ ; code to run before loading org-ref
+  :config
+  (setq
+   org-ref-completion-library 'org-ref-ivy-cite
+   org-ref-get-pdf-filename-function 'org-ref-get-pdf-filename-helm-bibtex
+   org-ref-default-bibliography (list "/Users/joafr/Documents/bibfiles/library.bib")
+   org-ref-bibliography-notes "/Users/joafr/org/zettelkasten/bibnotes.org"
+   org-ref-note-title-format "#+TITLE: ${citekey}: ${title}\n#+ROAM_KEY: ${ref}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n"
+   org-ref-notes-directory joafr/bibliography-notes
+   org-ref-notes-function 'orb-edit-notes
+    ))
+
+(after! org-ref
+  (setq
+   bibtex-completion-notes-path joafr/bibliography-notes
+   bibtex-completion-bibliography "/Users/joafr/Documents/bibfiles/library.bib"
+   bibtex-completion-pdf-field "file"
+   bibtex-completion-notes-template-multiple-files
+   (concat
+    "#+TITLE: ${title}\n"
+    "#+ROAM_KEY: cite:${=key=}"
+    "#+ROAM_TAGS: ${keywords}"
+    "#+CREATED:%<%Y-%m-%d-%H-%M-%S>"
+    "Time-stamp: <>\n"
+    "- tags :: \n"
+    "* NOTES \n"
+    ":PROPERTIES:\n"
+    ":Custom_ID: ${=key=}\n"
+    ":NOTER_DOCUMENT: %(orb-process-file-field \"${=key=}\")\n"
+    ":AUTHOR: ${author-abbrev}\n"
+    ":JOURNAL: ${journaltitle}\n"
+    ":DATE: ${date}\n"
+    ":YEAR: ${year}\n"
+    ":DOI: ${doi}\n"
+    ":URL: ${url}\n"
+    ":END:\n\n"
+    )
+   )
+)
+
+;;------------------------------------------------------------------------------------
 ;; org-roam
 ;;------------------------------------------------------------------------------------
-(setq org-roam-directory "/Users/joafr/org/zettelkasten")
- (use-package! org-roam-bibtex
+(use-package! org-roam-bibtex
   :after org-roam
   :hook (org-roam-mode . org-roam-bibtex-mode)
-  :bind (:map org-mode-map
-         (("C-c n a" . orb-note-actions)))
   :config
   (require 'org-ref)) ; optional: if Org Ref is not loaded anywhere else, load it here
+;;  :bind (:map org-mode-map
+;;         (("C-c n a" . orb-note-actions)))
 
-;; Add the cite-key in the title of the notes and make sure they end up in bibnotes folder.
-
+(setq org-roam-directory "/Users/joafr/org/zettelkasten")
+;;;; Add the cite-key in the title of the notes and make sure they end up in bibnotes folder.
+;;(setq orb-templates
+;;      '(("r" "ref" plain (function org-roam-capture--get-point) "%?"
+;;         :file-name "bibnotes/${citekey}"
+;;         :head "#+TITLE: ${citekey}: ${title}\n#+ROAM_KEY: ${ref}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n"
+;;         :unnarrowed t)))
 (setq orb-templates
       '(("r" "ref" plain (function org-roam-capture--get-point) "%?"
          :file-name "bibnotes/${citekey}"
-         :head "#+TITLE: ${citekey}: ${title}\n#+ROAM_KEY: ${ref}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n"
+         :head ""
          :unnarrowed t)))
 
 (setq org-roam-capture-templates
-        '(("d" "default" plain (function org-roam-capture--get-point) "%?"
+        '(("d" "default" plain (function org-roam-capture--get-point) ""
          :file-name "%<%Y%m%d%H%M%S>-${slug}"
          :head "#+TITLE: ${title}\n#+ROAM_ALIAS: \n#+CREATED: %U\n#+LAST_MODIFIED: %U\n"
          :unnarrowed t)))
+
+;;-----------------------------------------------------------------------------------------
+;;  org-noter
+;;------------------------------------------------------------------------------------------
+(use-package! org-noter
+  :after org
+  :config
+  (setq
+   ;; The WM can handle splits
+   ;;org-noter-notes-window-location 'other-frame
+   ;; Please stop opening frames
+   ;;org-noter-always-create-frame nil
+   ;; I want to see the whole file
+   org-noter-hide-other nil
+   ;; Everything is relative to the rclone mega
+   org-noter-notes-search-path joafr/bibliography-notes
+   )
+  )

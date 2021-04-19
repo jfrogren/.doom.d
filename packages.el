@@ -59,6 +59,9 @@
 (package! poly-R)
 (package! poly-markdown)
 (package! doom-themes)
+(package! org-ref)
+(package! org-noter)
+(package! org-roam)
 (package! org-roam-bibtex
   :recipe (:host github :repo "org-roam/org-roam-bibtex"))
 
