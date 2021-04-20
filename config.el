@@ -234,7 +234,7 @@
     "* NOTES \n"
     ":PROPERTIES:\n"
     ":Custom_ID: ${=key=}\n"
-    ":NOTER_DOCUMENT: %(orb-process-file-field \"${=key=}\")\n"
+    ":NOTER_DOCUMENT: %{file}\n"
     ":AUTHOR: ${author-abbrev}\n"
     ":JOURNAL: ${journaltitle}\n"
     ":DATE: ${date}\n"
@@ -267,7 +267,7 @@
 (setq orb-templates
       '(("r" "ref" plain (function org-roam-capture--get-point) "%?"
          :file-name "bibnotes/${citekey}"
-         :head ""
+         :head "#+TITLE: ${citekey}: ${title}\n#+ROAM_KEY: ${ref}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n"
          :unnarrowed t)))
 
 (setq org-roam-capture-templates

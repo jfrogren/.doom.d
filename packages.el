@@ -51,6 +51,7 @@
 
 ;; in ~/.doom.d/packages.el
 ;;
+(package! deft)
 
 (package! pdf-tools)
 (package! ivy-bibtex)
@@ -62,6 +63,7 @@
 (package! org-ref)
 (package! org-noter)
 (package! org-roam)
+(package! company-org-roam)
 (package! org-roam-bibtex
   :recipe (:host github :repo "org-roam/org-roam-bibtex"))
 
