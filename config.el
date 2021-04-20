@@ -196,6 +196,8 @@
       bibtex-completion-notes-path "/Users/joafr/org/zettelkasten/"
       bibtex-completion-notes-template-multiple-files ""))
 
+(use-package! ivy-hydra
+  :demand t)
 
 ;;;;;;;;;;UGLY CODE, SHOULD BE PLACED ELSEWHERE BUT DO NOT DARE TO EDIT NOW;;;;;;;;;;
 (after! org
