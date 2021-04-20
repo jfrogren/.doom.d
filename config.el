@@ -154,14 +154,14 @@
  )
 
 ;;------------------------------------------------------------------------------------
-;; org
+;;  org
 ;;------------------------------------------------------------------------------------
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-;; (setq org-directory "~/org/zettelkasten")
+ (setq org-directory "~/org/zettelkasten")
 
 ;;------------------------------------------------------------------------------------
-;; pdf-tools
+;;  pdf-tools
 ;;------------------------------------------------------------------------------------
 (use-package! pdf-tools
   :load-path "site-lisp/pdf-tools/lisp"
@@ -173,25 +173,41 @@
   (setq pdf-view-resize-factor 1.1)
   (setq pdf-view-use-unicode-ligther nil))
 
+;;-------------------------------------------------------------------------------------
+;;  deft
+;;-------------------------------------------------------------------------------------
 (setq deft-directory "/Users/joafr/org/zettelkasten/"
       deft-use-filename-as-title nil)
 
-(autoload 'ivy-bibtex "ivy-bibtex" "" t)
+;;-------------------------------------------------------------------------------------
+;;  ivy-bibtex
+;;-------------------------------------------------------------------------------------
+;; (autoload 'ivy-bibtex "ivy-bibtex" "" t)
 ;; ivy-bibtex requires ivy's `ivy--regex-ignore-order` regex builder, which
 ;; ignores the order of regexp tokens when searching for matching candidates.
 ;; Add something like this to your init file:
-(setq ivy-re-builders-alist
+(after! ivy-bibtex
+  :config
+  (setq ivy-re-builders-alist
       '((ivy-bibtex . ivy--regex-ignore-order)
         (t . ivy--regex-plus)))
-(setq bibtex-completion-bibliography "/Users/joafr/Documents/bibfiles/library.bib"
+  (setq bibtex-completion-bibliography "/Users/joafr/Documents/bibfiles/library.bib"
       bibtex-completion-library-path "/Users/joafr/Documents/bibpdfs"
       bibtex-completion-notes-path "/Users/joafr/org/zettelkasten/"
-      bibtex-completion-notes-template-multiple-files "")
+      bibtex-completion-notes-template-multiple-files ""))
 
-(setq org-directory "/Users/joafr/org/zettelkasten/"
-      org-roam-directory "/Users/joafr/org/zettelkasten/")
 
-(use-package org-ref
+;;;;;;;;;;UGLY CODE, SHOULD BE PLACED ELSEWHERE BUT DO NOT DARE TO EDIT NOW;;;;;;;;;;
+(after! org
+  :config
+  (setq org-directory "/Users/joafr/org/zettelkasten/"))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;------------------------------------------------------------------------------------
+;;  org-ref
+;;------------------------------------------------------------------------------------
+(use-package! org-ref
     :after org
     :commands
     (org-ref-cite-hydra/body
@@ -212,68 +228,74 @@
          org-ref-notes-function 'orb-edit-notes
     ))
 
-(use-package org-roam
-  :hook (org-load . org-roam-mode)
-  :commands (org-roam-buffer-toggle-display
-             org-roam-find-file
-             org-roam-graph
-             org-roam-insert
-             org-roam-switch-to-buffer
-             org-roam-dailies-date
-             org-roam-dailies-today
-             org-roam-dailies-tomorrow
-             org-roam-dailies-yesterday)
-  :preface
+;;--------------------------------------------------------------------------------------
+;;  org-roam
+;;--------------------------------------------------------------------------------------
+;;(after! org-roam
+;;  :hook (org-load . org-roam-mode)
+;;  :commands (org-roam-buffer-toggle-display
+;;             org-roam-find-file
+;;             org-roam-graph
+;;             org-roam-insert
+;;             org-roam-switch-to-buffer
+;;             org-roam-dailies-date
+;;             org-roam-dailies-today
+;;             org-roam-dailies-tomorrow
+;;             org-roam-dailies-yesterday)
+;;  :preface
   ;; Set this to nil so we can later detect whether the user has set a custom
   ;; directory for it, and default to `org-directory' if they haven't.
-  (defvar org-roam-directory nil)
-  :init
-  :config
-  (setq org-roam-directory (expand-file-name (or org-roam-directory "roam")
-                                             org-directory)
-        org-roam-verbose nil  ; https://youtu.be/fn4jIlFwuLU
-        org-roam-buffer-no-delete-other-windows t ; make org-roam buffer sticky
-        org-roam-completion-system 'default
-)
+;;  (defvar org-roam-directory nil)
+;;  :init
+;;  :config
+;;  (setq org-roam-directory (expand-file-name (or org-roam-directory "roam")
+;;                                             org-directory)
+;;        org-roam-verbose nil  ; https://youtu.be/fn4jIlFwuLU
+;;        org-roam-buffer-no-delete-other-windows t ; make org-roam buffer sticky
+;;        org-roam-completion-system 'default
+;;)
 
   ;; Normally, the org-roam buffer doesn't open until you explicitly call
   ;; `org-roam'. If `+org-roam-open-buffer-on-find-file' is non-nil, the
   ;; org-roam buffer will be opened for you when you use `org-roam-find-file'
   ;; (but not `find-file', to limit the scope of this behavior).
-  (add-hook 'find-file-hook
-    (defun +org-roam-open-buffer-maybe-h ()
-      (and +org-roam-open-buffer-on-find-file
-           (memq 'org-roam-buffer--update-maybe post-command-hook)
-           (not (window-parameter nil 'window-side)) ; don't proc for popups
-           (not (eq 'visible (org-roam-buffer--visibility)))
-           (with-current-buffer (window-buffer)
-             (org-roam-buffer--get-create)))))
+;;  (add-hook 'find-file-hook
+;;    (defun +org-roam-open-buffer-maybe-h ()
+;;      (and +org-roam-open-buffer-on-find-file
+;;           (memq 'org-roam-buffer--update-maybe post-command-hook)
+;;           (not (window-parameter nil 'window-side)) ; don't proc for popups
+;;           (not (eq 'visible (org-roam-buffer--visibility)))
+;;           (with-current-buffer (window-buffer)
+;;             (org-roam-buffer--get-create)))))
 
   ;; Hide the mode line in the org-roam buffer, since it serves no purpose. This
   ;; makes it easier to distinguish among other org buffers.
-  (add-hook 'org-roam-buffer-prepare-hook #'hide-mode-line-mode))
+;;  (add-hook 'org-roam-buffer-prepare-hook #'hide-mode-line-mode))
 
 
 ;; Since the org module lazy loads org-protocol (waits until an org URL is
 ;; detected), we can safely chain `org-roam-protocol' to it.
-(use-package org-roam-protocol
-  :after org-protocol)
+;; (use-package org-roam-protocol
+;;  :after org-protocol)
 
-
-(use-package company-org-roam
-  :after org-roam
+;;(use-package company-org-roam
+;;  :after org-roam
+;;  :config
+;;  (set-company-backend! 'org-mode '(company-org-roam company-yasnippet company-dabbrev)))
+;;(use-package! org-roam
+;;  :config
+(after! org-roam
   :config
-  (set-company-backend! 'org-mode '(company-org-roam company-yasnippet company-dabbrev)))
+  (setq org-roam-directory "/Users/joafr/org/zettelkasten/"))
 
 (use-package! org-roam-bibtex
   :after org-roam
   :hook (org-roam-mode . org-roam-bibtex-mode)
   :config
-  (require 'org-ref))
-
-(setq org-roam-bibtex-preformat-keywords
+  (require 'org-ref)
+  (setq org-roam-bibtex-preformat-keywords
       '("citekey" "title" "url" "file" "author-or-editor" "keywords"))
-(setq orb-templates
+  (setq orb-templates
         '(("r" "ref" plain (function org-roam-capture--get-point)
            ""
            :file-name "${citekey}"
@@ -284,9 +306,12 @@
 
 \n* ${citekey}: ${title}\n  :PROPERTIES:\n  :Custom_ID: ${citekey}\n  :URL: \n  :AUTHOR: ${author}\n  :NOTER_DOCUMENT: ${file}\n  :NOTER_PAGE: \n  :END:\n\n"
 
-           :unnarrowed t)))
+           :unnarrowed t))))
 
-(use-package org-noter
+;;----------------------------------------------------------------------------------------
+;;  org-noter
+;;-----------------------------------------------------------------------------------------
+(use-package! org-noter
   :after org
   :config
   (setq
@@ -301,6 +326,9 @@
 )
    )
 
+;;-----------------------------------------------------------------------------------------
+;;  org-capture
+;;------------------------------------------------------------------------------------------
 ;; Actually start using templates
 (after! org-capture
   ;; Firefox and Chrome
