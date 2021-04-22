@@ -287,7 +287,6 @@
 ;;(use-package! org-roam
 ;;  :config
 (after! org-roam
-  :config
   (setq org-roam-directory "/Users/joafr/org/zettelkasten/"))
 
 (use-package! org-roam-bibtex
@@ -296,11 +295,11 @@
   :config
   (require 'org-ref)
   (setq org-roam-bibtex-preformat-keywords
-      '("citekey" "title" "url" "file" "author-or-editor" "keywords"))
+      '("entry-type" "citekey" "title" "url" "file" "author-or-editor" "keywords"))
   (setq orb-templates
         '(("r" "ref" plain (function org-roam-capture--get-point)
            ""
-           :file-name "${citekey}"
+           :file-name "bibnotes/${citekey}"
            :head "#+TITLE: ${citekey}: ${title}\n#+ROAM_KEY: ${ref}
 
 - tags ::
