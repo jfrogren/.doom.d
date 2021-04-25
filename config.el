@@ -193,7 +193,7 @@
         (t . ivy--regex-plus)))
   (setq bibtex-completion-bibliography "/Users/joafr/Documents/bibfiles/library.bib"
       bibtex-completion-library-path "/Users/joafr/Documents/bibpdfs"
-      bibtex-completion-notes-path "/Users/joafr/org/zettelkasten/"
+      bibtex-completion-notes-path "/Users/joafr/org/zettelkasten/bibnotes/"
       bibtex-completion-notes-template-multiple-files ""))
 
 (use-package! ivy-hydra
@@ -224,7 +224,7 @@
          org-ref-completion-library 'org-ref-ivy-cite
          org-ref-get-pdf-filename-function 'org-ref-get-pdf-filename-helm-bibtex
          org-ref-default-bibliography (list "/Users/joafr/Documents/bibfiles/library.bib")
-         org-ref-bibliography-notes "/Users/joafr/org/zettelkasten/"
+         org-ref-bibliography-notes "/Users/joafr/org/zettelkasten/bibnotes/"
          org-ref-note-title-format "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :NOTER_DOCUMENT: %F\n :ROAM_KEY: cite:%k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n\n"
          org-ref-notes-directory "/Users/joafr/org/zettelkasten/"
          org-ref-notes-function 'orb-edit-notes
@@ -323,7 +323,7 @@
    ;; I want to see the whole file
    org-noter-hide-other nil
    ;; Everything is relative to the main notes file
-   org-noter-notes-search-path (list "/Users/joafr/org/zettelkasten/")
+   org-noter-notes-search-path (list "/Users/joafr/org/zettelkasten/bibnotes/")
 )
    )
 
