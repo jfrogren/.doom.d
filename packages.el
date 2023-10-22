@@ -48,3 +48,9 @@
 ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
+
+
+;; EASY-HUGO (2023-10-20)
+;;
+(package! emacs-easy-hugo
+  :recipe (:host github :repo "masasam/emacs-easy-hugo"))
