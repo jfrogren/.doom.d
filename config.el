@@ -77,12 +77,11 @@
 ;;
 ;; EASY-HUGO (2023-10-20)
 
-;; (use-package! easy-hugo
-;; :init
-;; (setq easy-hugo-basedir "~/Documents/hemsidor/joakim/")
-;; (setq easy-hugo-postdir "content/posts")
-;; (setq easy-hugo-url "https://frogren.se")
-;; (setq easy-hugo-sshdomain "~/Dokument/hemsidor/joakim")
-;; (setq easy-hugo-root "~/Dokument/hemsidor/joakim/")
-;; (setq easy-hugo-previewtime "300")
-;; :bind ("C-c C-e" . easy-hugo))
+ (use-package! easy-hugo
+ :init
+ (setq easy-hugo-basedir "~/Documents/hemsidor/joakim/")
+ (setq easy-hugo-postdir "content/posts")
+ (setq easy-hugo-url "https://frogren.se")
+ (setq easy-hugo-sshdomain "~/Dokument/hemsidor/joakim")
+ (setq easy-hugo-root "~/Dokument/hemsidor/joakim/"); (setq easy-hugo-previewtime "300")
+ :bind ("C-c C-e" . easy-hugo))
