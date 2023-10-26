@@ -49,7 +49,27 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
+(package! deft)
 
+(package! pdf-tools)
+(package! ivy-bibtex)
+(package! pandoc)
+(package! polymode)
+(package! poly-R)
+(package! poly-markdown)
+(package! doom-themes)
+(package! org-ref)
+(package! org-noter)
+(package! org-roam)
+(package! company-org-roam)
+(package! org-roam-bibtex
+  :recipe (:host github :repo "org-roam/org-roam-bibtex"))
+
+;; When using org-roam via the `+roam` flag
+(unpin! org-roam)
+
+;; When using bibtex-completion via the `biblio` module
+(unpin! bibtex-completion helm-bibtex ivy-bibtex)
 ;; EASY-HUGO (2023-10-20)
 ;;
 (package! emacs-easy-hugo
