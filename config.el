@@ -3,20 +3,10 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
-
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
- (setq user-full-name "Joakim Frögren"
-       user-mail-address "joakim@frogren.se")
-
-(add-to-list 'default-frame-alist '(top . 12))
-(add-to-list 'default-frame-alist '(left . 12))
-(add-to-list 'default-frame-alist '(width . 148))
-(add-to-list 'default-frame-alist '(height . 47))
-(add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
-(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-(add-to-list 'default-frame-alist '(ns-appearance . dark))
-
+;; (setq user-full-name "John Doe"
+;;       user-mail-address "john@doe.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -27,16 +17,15 @@
 ;; - `doom-symbol-font' -- for symbols
 ;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
 ;;
-;;
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-;; (setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
-;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
+;; (setq doom-font (font-spec :family "Fira Code" :size 13 :weight 'semi-light)
+;;      doom-variable-pitch-font (font-spec :family "JetBrainsMono" :size 13))
 
-(setq doom-font (font-spec :family "JetBrains Mono" :size 13)
-      doom-big-font (font-spec :family "JetBrains Mono" :size 16)
-      doom-variable-pitch-font (font-spec :family "JetBrains Mono" :size 12))
+(setq doom-font (font-spec :family "JetBrains Mono NL" :size 13)
+      doom-big-font (font-spec :family "JetBrains Mono NL" :size 16)
+      doom-variable-pitch-font (font-spec :family "JetBrains Mono NL" :size 12))
 
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -46,9 +35,8 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-;; (setq doom-theme 'doom-one)
+(setq doom-theme 'doom-nord-light)
 
-(load-theme 'doom-nord-light t)
 (custom-theme-set-faces! 'doom-nord-light
   '(default :background nil)
   '(hl-line :background "#f0eee4")
@@ -72,6 +60,7 @@
   '(flycheck-warning :background "#f2dfe1" :underline nil)
   '(flyspell-duplicate :background nil :underline nil)
   '(flyspell-incorrect :background "#f2dfe1" :underline nil))
+
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
@@ -112,70 +101,26 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
-
-;; Code to be able to write 'snabel-a' using the right 'Alt' key
-(setq ns-right-alternate-modifier 'none)
-
-;;--------------------------------------------------------------------------
-;; pdf-tools
-;;--------------------------------------------------------------------------
-(use-package! pdf-tools
-  :load-path "site-lisp/pdf-tools/lisp"
-  :magic ("%PDF" . pdf-view-mode)
-  :config
-  (pdf-tools-install :no-query)
-  (setq-default pdf-view-display-size 'fit-page)
-  (setq pdf-annot-activate-created-annotations t)
-  (setq pdf-view-resize-factor 1.1)
-  (setq pdf-view-use-unicode-ligther nil)
-  )
-;;--------------------------------------------------------------------------
-;;  ivy-bibtex
-;;--------------------------------------------------------------------------
-(autoload 'ivy-bibtex "ivy-bibtex" "" t)
-;; ivy-bibtex requires ivy's `ivy--regex-ignore-order` regex builder, which
-;; ignores the order of regexp tokens when searching for matching candidates.
-;; Add something like this to your init file:
-(setq ivy-re-builders-alist
-      '((ivy-bibtex . ivy--regex-ignore-order)
-        (t . ivy--regex-plus)))
-(setq bibtex-completion-bibliography "/Users/joafr/Documents/bibfiles/library.bib"
-      bibtex-completion-library-path "/Users/joafr/Documents/bibpdfs"
-      bibtex-completion-notes-path "/Users/joafr/Documents/bibnotes"
-      bibtex-completion-notes-extension ".md"
-      bibtex-completion-find-additional-pdfs t
-      bibtex-completion-notes-template-multiple-files "Notes on ${author-or-editor} (${year}) - ${title}"
-      bibtex-completion-notes-template-one-file "# Notes on ${author-or-editor} (${year}): ${title}")
-(delete-file "~/Library/Colors/Emacs.clr")
-
-;;-------------------------------------------------------------------------------------
-;; ispell - hunspell
-;;-------------------------------------------------------------------------------------
-(setq-default ispell-program-name "/usr/local/bin/hunspell")
-  (setq ispell-really-hunspell t)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (poly-R pdf-tools pandoc-mode pandoc lua-mode exec-path-from-shell ewal-doom-themes ess))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
-;;---------------------------------------------------------------------------
-;; easy-hugo (2023-10-20)
-;;---------------------------------------------------------------------------
+;;
+;;-----------------------------------------------------------------------------
+;; EASY-HUGO (2023-10-20)
+;;-----------------------------------------------------------------------------
  (use-package! easy-hugo
  :init
  (setq easy-hugo-basedir "~/Documents/hemsidor/joakim/")
- (setq easy-hugo-postdir "content/posts")
- (setq easy-hugo-url "https://frogren.se")
+ (setq easy-hugo-postdir "content/blog")
+ (setq easy-hugo-url "https://www.frogren.se")
  (setq easy-hugo-sshdomain "~/Dokument/hemsidor/joakim")
  (setq easy-hugo-root "~/Dokument/hemsidor/joakim/"); (setq easy-hugo-previewtime "300")
  :bind ("C-c C-e" . easy-hugo))
+;;
+::-------------------------------------------------------------------------------
+;; MIXED-PITCH (2023-10-27) (https://www.dschapman.com/notes/33f4867d-dbe9-4c4d-8b0a-d28ad6376128)
+;;-------------------------------------------------------------------------------
+
+(use-package! mixed-pitch
+  :hook
+  ;; If you want it in all text modes:
+  (text-mode . mixed-pitch-mode))
+
+ 

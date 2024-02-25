@@ -7,7 +7,7 @@
 
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
-;(package! some-package)
+;;(package! some-package)
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
@@ -43,34 +43,36 @@
 
 ;; Doom's packages are pinned to a specific commit and updated from release to
 ;; release. The `unpin!' macro allows you to unpin single packages...
-;(unpin! pinned-package)
+;;(unpin! pinned-package)
 ;; ...or multiple packages
-;(unpin! pinned-package another-pinned-package)
+;;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
-(package! deft)
+;;(package! deft)
 
-(package! pdf-tools)
-(package! ivy-bibtex)
-(package! pandoc)
-(package! polymode)
-(package! poly-R)
-(package! poly-markdown)
-(package! doom-themes)
-(package! org-ref)
-(package! org-noter)
-(package! org-roam)
-(package! company-org-roam)
-(package! org-roam-bibtex
-  :recipe (:host github :repo "org-roam/org-roam-bibtex"))
+;;(package! pdf-tools)
+;;(package! ivy-bibtex)
+;;(package! pandoc)
+;;(package! polymode)
+;;(package! poly-R)
+;;(package! poly-markdown)
+;;(package! doom-themes)
+;;(package! org-ref)
+;;(package! org-noter)
+;;(package! org-roam)
+;;(package! company-org-roam)
+;;(package! org-roam-bibtex
+;;  :recipe (:host github :repo "org-roam/org-roam-bibtex"))
 
 ;; When using org-roam via the `+roam` flag
-(unpin! org-roam)
+;;(unpin! org-roam)
 
 ;; When using bibtex-completion via the `biblio` module
-(unpin! bibtex-completion helm-bibtex ivy-bibtex)
+;;(unpin! bibtex-completion helm-bibtex ivy-bibtex)
 ;; EASY-HUGO (2023-10-20)
 ;;
 (package! emacs-easy-hugo
   :recipe (:host github :repo "masasam/emacs-easy-hugo"))
+
+(package! mixed-pitch)
