@@ -51,12 +51,12 @@
 
 ;;(package! deft)
 
-;;(package! pdf-tools)
-;;(package! ivy-bibtex)
+(package! pdf-tools)
+(package! ivy-bibtex)
 ;;(package! pandoc)
-;;(package! polymode)
-;;(package! poly-R)
-;;(package! poly-markdown)
+(package! polymode)
+(package! poly-R)
+(package! poly-markdown)
 ;;(package! doom-themes)
 ;;(package! org-ref)
 ;;(package! org-noter)

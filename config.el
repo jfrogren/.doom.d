@@ -122,5 +122,3 @@
   :hook
   ;; If you want it in all text modes:
   (text-mode . mixed-pitch-mode))
-
- 
