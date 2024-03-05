@@ -11,3 +11,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
 )
+
+(setq bibtex-completion-notes-path "/Users/joafr/Documents/bibnotes"
+      bibtex-completion-notes-extension ".md"
+      bibtex-completion-find-additional-pdfs t
+      bibtex-completion-notes-template-multiple-files "# Anteckningar om ${author-or-editor} (${year}) - ${title}"
+)
